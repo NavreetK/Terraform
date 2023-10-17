@@ -105,6 +105,11 @@ resource "aws_lb_target_group" "terraform-tg" {
   }
 }
 
+resource "aws_lb_target_group_attachment" "group-attachment" {
+  target_group_arn = aws_lb_target_group.terraform-tg.arn
+  target_id        = aws_instance.Ubuntu_instance.id
+  port            = 8080
+}
 
 
 resource "aws_lb" "load_balancer" {
