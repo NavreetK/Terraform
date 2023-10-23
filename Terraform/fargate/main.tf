@@ -9,29 +9,63 @@ resource "aws_ecs_cluster" "cluster_1" {
 data "aws_vpc" "default_vpc" {
   default = true
 }
-data "aws_subnet_ids" "default_subnet" {
+
+data "aws_subnet" "default_subnet" {
+  vpc_id = data.aws_vpc.default_vpc.id
+  availability_zone = var.zone
+}
+
+module "ecs-fargate" {
+  source  = "umotif-public/ecs-fargate/aws"
+  version = "~> 6.1.0"
+
+  name_prefix        = "ecs-fargate-example"
+  vpc_id             = data.aws_vpc.default_vpc.id
+  private_subnet_ids = [data.aws_subnet.default_subnet.id]
+
+  cluster_id = aws_ecs_cluster.cluster_1.id
+
+  task_container_image   = "nginx:latest"
+  task_definition_cpu    = 256
+  task_definition_memory = 512
+
+  task_container_port             = 80
+  task_container_assign_public_ip = true
+
+  load_balanced = false
+
+  target_groups = [
+    {
+      target_group_name = "tg-fargate-example"
+      container_port    = 80
+    }
+  ]
+
+  health_check = {
+    port = "traffic-port"
+    path = "/"
+  }
+  tags = {
+    Environment = "test"
+    Project     = "Test"
+  }
+
+}
+
+resource "aws_security_group_rule" "ecs_fargate_ingress" {
+  type        = "ingress"
+  from_port   = 80
+  to_port     = 80
+  protocol    = "tcp"
+  security_group_id = var.sg-id
+  source_security_group_id = aws_security_group.default.id
+}
+
+resource "aws_security_group" "default" {
   vpc_id = data.aws_vpc.default_vpc.id
 }
 
-resource "aws_ecs_service" "service_1" {
-  name = var.service_name
-  cluster = aws_ecs_cluster.cluster_1.id
-  task_definition = var.task_definition_arn
-  desired_count = var.desired_count
-  launch_type = "FARGATE"
-}
-
-resource "aws_ecs_task_definition" "default" {
-  family = var.task_family
-  network_mode = "awsvpc"
-  cpu = var.cpu
-  memory = var.memory
-  container_definitions = var.container_definitions
-}
-resource "aws_ecs_container_definition" "default" {
-  name = var.container_name
-  image = var.image
-  cpu = var.cpu
-  memory = var.memory
-  portMappings = var.port_mappings
+data "aws_security_group" "default" {
+  vpc_id = data.aws_vpc.default_vpc.id
+  name   = "default"
 }
