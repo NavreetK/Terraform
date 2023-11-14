@@ -37,8 +37,8 @@ Mainly I have used the "resource" and "data" blocks in my projects. The 'resourc
 
 Now we have everything installed with the required permissions. Let's get started with our projects.
 
-1. terraform_AWS - In this project, I have created an ec2 instance along with Auto Scaling Group (ASG), Load Balancer (LB), Database (RDS), and deployed that to a domain using ROUTE53.
-[terraform_AWS](https://github.com/Navreetk/Terraform/blob/main/terraform_AWS/README.md)
+1. [terraform_AWS](https://github.com/NavreetK/Terraform/blob/main/Terraform/terraform_AWS/README.md) - In this project, I have created an ec2 instance along with Auto Scaling Group (ASG), Load Balancer (LB), Database (RDS), and deployed that to a domain using ROUTE53.
+
 
 
 
