@@ -1,4 +1,4 @@
-# Terraform_AWS
+# ECS
  In this project, I have created an ec2 instance along with Auto Scaling Group (ASG), Load Balancer (LB), Database (RDS), and deployed that to a domain using ROUTE53.
 
 *Instance created  

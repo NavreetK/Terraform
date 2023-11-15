@@ -37,7 +37,14 @@ Mainly I have used the "resource" and "data" blocks in my projects. The 'resourc
 
 Now we have everything installed with the required permissions. Let's get started with our projects.
 
-1. [terraform_AWS](https://github.com/NavreetK/Terraform/blob/main/Terraform/terraform_AWS/README.md) - In this project, I have created an ec2 instance along with Auto Scaling Group (ASG), Load Balancer (LB), Database (RDS), and deployed that to a domain using ROUTE53.
+1. [ECS](https://github.com/NavreetK/Terraform/blob/main/Terraform/ECS/README.md) - This project is creating an ec2 instance along with Auto Scaling Group (ASG), Load Balancer (LB), Database (RDS), and deployed that to a domain using ROUTE53.
+
+2. [Lightsail](https://github.com/NavreetK/Terraform/blob/main/Terraform/lightsail/README.md) - This project sets up an AWS Lightsail instance with specified configurations and outputs the public IP address of the created instance. 
+
+3. [Fargate](https://github.com/NavreetK/Terraform/blob/main/Terraform/fargate/README.md) - This project is used to set up an ECS Fargate service within a specified VPC and subnet, along with necessary security group configurations.
+
+4. [Beanstalk](https://github.com/NavreetK/Terraform/blob/main/Terraform/beanstalk/README.md) - This project sets up an Elastic Beanstalk application and environment in AWS, allowing you to deploy and manage your applications easily.
+
 
 
 
